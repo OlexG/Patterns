@@ -1,5 +1,3 @@
-/* eslint-disable no-param-reassign */
-
 function withWeight(obj) {
 	obj.weight = 0;
 }
