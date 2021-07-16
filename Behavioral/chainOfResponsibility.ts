@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/ban-types
 function validate(initialMessage: string, ...args: Function[]) {
 	let passes;
 	args.every((fn) => {
