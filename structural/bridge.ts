@@ -31,21 +31,29 @@ class FileDatabase implements dataBase {
 	}
 }
 
-class Abstraction {
+class ControllerManager {
 	db: dataBase;
 	constructor(db: dataBase) {
 		this.db = db;
 	}
-	addAndSave(text: string) {
-		this.db.add(text);
+	// eslint-disable-next-line @typescript-eslint/ban-types
+	login(username: string, res: {send: (ret: string) => {}}) {
+		this.db.add(username);
 		this.db.save();
+		res.send('logged in');
 	}
 }
 
 (function client() {
-	const a1 = new Abstraction(new SQLDatabase());
-	a1.addAndSave('someText');
-	const a2 = new Abstraction(new FileDatabase());
-	a2.addAndSave('someText');
+	const a1 = new ControllerManager(new SQLDatabase());
+	const res = {
+		send: (ret: string) => {
+			console.log(ret);
+			return ret;
+		}
+	};
+	a1.login('user1', res);
+	const a2 = new ControllerManager(new FileDatabase());
+	a2.login('user2', res);
 })();
 
